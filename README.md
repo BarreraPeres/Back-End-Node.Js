@@ -43,7 +43,8 @@ Este sistema foi projetado para gerenciar o empréstimo de livros para os alunos
    cd seu-repositorio
 
 2. Construa e inicie os contêineres Docker:
-
+ 
+    ```sh
    docker-compose build
    docker-compose up
 
