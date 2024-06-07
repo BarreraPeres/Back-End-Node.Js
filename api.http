@@ -1,0 +1,61 @@
+POST http://localhost:3333/alunos
+Content-Type: application/json
+
+
+{
+    "nome": "alek",
+    "telefone": "129888888"
+}
+
+###
+
+POST http://localhost:3333/biblioteca/livros
+Content-Type: application/json
+
+
+{
+    "isbn": "1252332", 
+    "nome": "Sherlock Holmes",
+    "autor": "arthur conan doyle",
+    "paginas": 300,
+    "quantidade": 5
+}
+###
+
+POST http://localhost:3333/colaboradores
+Content-Type: application/json
+
+{
+    "cpf": 5,
+    "nome": "supervisor Salve",
+    "email": "supervisor@gmail.com",
+    "cargo": "supervisor"
+}
+
+###
+
+POST http://localhost:3333/biblioteca/13/emprestimo
+Content-Type: application/json
+
+
+{
+    "dataDevolucao": null,
+    "ra": 12,
+    "cpf": 529  
+}
+
+###
+GET http://localhost:3333/biblioteca/12/emprestimo
+###
+GET http://localhost:3333/biblioteca/livros?query=
+###
+GET http://localhost:3333/biblioteca/alunos?query=
+
+###
+PUT http://localhost:3333/biblioteca/138/devolucao
+Content-Type: application/json
+
+{
+    "ra": 12,
+    "isbn": 13
+}

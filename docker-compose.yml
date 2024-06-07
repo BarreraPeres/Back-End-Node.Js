@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3310:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: seu_banco_de_dados
+      MYSQL_PASSWORD: root
+
+  app:
+    build: .
+    ports:
+      - "8080:3333"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql://root:root@db:3306/seu_banco_de_dados
+volumes:
+  db_data:
+
+
