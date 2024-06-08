@@ -39,11 +39,12 @@ Este sistema foi projetado para gerenciar o empréstimo de livros para os alunos
 1. Clone o repositório:
 
    ```sh
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
+   git clone https://github.com/BarreraPeres/Back-End-Node.Js.git
+   cd Back-End-Node.Js/
 
 2. Construa e inicie os contêineres Docker:
-
+ 
+    ```sh
    docker-compose build
    docker-compose up
 
