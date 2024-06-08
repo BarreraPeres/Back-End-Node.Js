@@ -51,4 +51,17 @@ Este sistema foi projetado para gerenciar o empréstimo de livros para os alunos
 3. Documentação da API (Swagger): 
 A documentação da API está disponível através do Swagger UI. Após iniciar o servidor, você pode acessá-la em:
    ```sh
-   http://localhost:3333/docs
+   http://localhost:8080/docs
+
+4. Caso queira testar no banco de dados:
+Execute as migrações do banco de dados:
+   ```sh
+   npm run db:migrate
+Execute o script de seed do Prisma para popular o banco de dados com dados de teste:
+   ```sh
+   npx prisma db seed
+Abra o Prisma Studio para visualizar e interagir com os dados do banco de dados:
+   ```sh
+   npm run db:studio
+
+Siga esses passos para instalar e configurar o sistema em sua máquina local e aproveite todos os recursos oferecidos pelo Sistema de Gerenciamento de Empréstimos de Livros!
