@@ -45,14 +45,14 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3333/biblioteca/12/emprestimo
+GET http://localhost:8080/biblioteca/12/emprestimo
 ###
-GET http://localhost:3333/biblioteca/livros?query=
+GET http://localhost:8080/biblioteca/livros?query=
 ###
-GET http://localhost:3333/biblioteca/alunos?query=
+GET http://localhost:8080/biblioteca/alunos?query=
 
 ###
-PUT http://localhost:3333/biblioteca/138/devolucao
+PUT http://localhost:8080/biblioteca/138/devolucao
 Content-Type: application/json
 
 {
