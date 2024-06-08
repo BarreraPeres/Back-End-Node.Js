@@ -1,4 +1,4 @@
-POST http://localhost:3333/alunos
+POST http://localhost:8080/biblioteca/alunos
 Content-Type: application/json
 
 
@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3333/biblioteca/livros
+POST http://localhost:8080/biblioteca/livros
 Content-Type: application/json
 
 
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:3333/colaboradores
+POST http://localhost:8080/biblioteca/colaboradores
 Content-Type: application/json
 
 {
@@ -34,7 +34,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3333/biblioteca/13/emprestimo
+POST http://localhost:8080/biblioteca/11111/emprestimo
 Content-Type: application/json
 
 

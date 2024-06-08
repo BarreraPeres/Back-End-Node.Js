@@ -18,7 +18,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=mysql://root:root@db:3306/seu_banco_de_dados
+      - DATABASE_URL=mysql://root:root@db:3310/seu_banco_de_dados
 volumes:
   db_data:
 
