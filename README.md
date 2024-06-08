@@ -53,15 +53,13 @@ A documentação da API está disponível através do Swagger UI. Após iniciar 
    ```sh
    http://localhost:8080/docs
 
-4. Caso queira testar no banco de dados:
-Execute as migrações do banco de dados:
+### Caso queira testar no banco de dados:
+1. Execute as migrações do banco de dados:
    ```sh
    npm run db:migrate
-Execute o script de seed do Prisma para popular o banco de dados com dados de teste:
+2. Execute o script de seed do Prisma para popular o banco de dados com dados de teste:
    ```sh
    npx prisma db seed
-Abra o Prisma Studio para visualizar e interagir com os dados do banco de dados:
+3. Abra o Prisma Studio para visualizar e interagir com os dados do banco de dados:
    ```sh
    npm run db:studio
-
-Siga esses passos para instalar e configurar o sistema em sua máquina local e aproveite todos os recursos oferecidos pelo Sistema de Gerenciamento de Empréstimos de Livros!
