@@ -1,4 +1,3 @@
-# Use uma imagem base do Node.js (ou a imagem apropriada para o seu aplicativo)
 FROM node:20
 
 WORKDIR /usr/src/app
