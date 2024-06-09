@@ -20,7 +20,7 @@ Este sistema foi projetado para gerenciar o empréstimo de livros para os alunos
 - [x]  Deve ser possível Permitir que o colaborador faça o empréstimo e retorne uma nota com o ID do empréstimo
 - [x]  Deve ser possível Permitir que o aluno devolva um livro com base no ID do empréstimo
 
-## Regas de Negócio
+## Regras de Negócio
 
 - [x]  Garantir que cada livro tenha um ISBN único
 - [x]  Garantir que apenas um colaborador pode realizar o empréstimo de um livro
