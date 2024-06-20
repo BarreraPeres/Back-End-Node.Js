@@ -32,13 +32,15 @@ Este sistema foi projetado para gerenciar o empréstimo de livros para os alunos
 
 ### Pré-requisitos
 
+- Node
 - Docker
 - Docker Compose
 
 ### Passos para Instalação
-1. Clone o repositório:
+1. Clone o repositório e instale as dependências:
 
    ```sh
+   npm i
    git clone https://github.com/BarreraPeres/Back-End-Node.Js.git
    cd Back-End-Node.Js/
 
