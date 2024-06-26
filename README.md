@@ -47,8 +47,8 @@ Este sistema foi projetado para gerenciar o empréstimo de livros para os alunos
 
    ```sh
    npm i
-   git clone https://github.com/BarreraPeres/Back-End-Node.Js.git
-   cd Back-End-Node.Js/
+   git clone 
+   cd lib-back-end-node.js/
 
 2. Construa e inicie os contêineres Docker:
  
