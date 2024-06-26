@@ -2,9 +2,9 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
 import { prisma } from "../../../config/prisma";
-import { compare } from "bcryptjs";
 import { BadRequest } from "../../_errors/bad-request";
-
+import pkg from 'bcryptjs';
+const { compare } = pkg;
 
 
 export async function loginColaborador(app: FastifyInstance) {

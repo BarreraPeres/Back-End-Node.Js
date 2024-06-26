@@ -2,7 +2,8 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { number, z } from "zod";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../../../config/prisma";
-import { hash } from "bcryptjs";
+import pkg from 'bcryptjs';
+const { hash } = pkg;
 
 
 export async function registraColaborador(app: FastifyInstance) {

@@ -4,7 +4,8 @@ import { geradorRa } from "../../../utils/gerador-ra"
 import { geradorEmail } from "../../../utils/gerador-email"
 import { prisma } from "../../../config/prisma"
 import { FastifyInstance } from "fastify"
-import bcrypt from "bcryptjs"
+import pkg from 'bcryptjs';
+const { hash } = pkg;
 
 
 export async function registraAluno(app: FastifyInstance) {
@@ -29,7 +30,7 @@ export async function registraAluno(app: FastifyInstance) {
     }, async (request, reply) => {
       const { nome, telefone, senha } = request.body
 
-      const senha_hash = await bcrypt.hash(senha, 6)
+      const senha_hash = await hash(senha, 6)
 
 
       const alunoRa = geradorRa()
