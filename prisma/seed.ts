@@ -8,6 +8,7 @@ async function seed() {
       nome: "Joseph Bell",
       telefone: "11111",
       email: "JosephBell@universidade.com.br",
+      senha_hash: "password"
     },
   })
 
@@ -18,6 +19,7 @@ async function seed() {
       cargo: "Bibliotecário",
       cpf: 111111,
       email: "JonhDoe@universidade.com.br",
+      senha_hash: "password"
     }
   })
 

@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { prisma } from "../config/prisma";
+import { prisma } from "../../../config/prisma";
 
 export async function buscarLivros(app: FastifyInstance) {
   app
@@ -10,6 +10,7 @@ export async function buscarLivros(app: FastifyInstance) {
       schema: {
         summary: "Busca todos livros",
         tags: ["livros"],
+        description: "Busca livros paginados",
         querystring: z.object({
           query: z.string().nullish(),
           pageIndex: z.string().nullish().default("0").transform(Number),

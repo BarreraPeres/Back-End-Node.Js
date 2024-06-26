@@ -1,19 +1,19 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
-import { prisma } from "../config/prisma";
-import { BadRequest } from "./_errors/bad-request";
+import { prisma } from "../../../config/prisma";
+import { BadRequest } from "../../_errors/bad-request";
+import { verifyJwt } from "../../middleware/verify-jwt";
 
 export async function buscarEmprestimoAluno(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
-    .get("/:alunoRa/emprestimo", {
+    .get("/emprestimo", {
+      onRequest: verifyJwt,
       schema: {
-        summary: "Busca um emprestimo",
-        tags: ["emprestimos"],
-        params: z.object({
-          alunoRa: z.coerce.number().int()
-        }),
+        summary: "Busca emprestimos",
+        tags: ["alunos"],
+        description: "Aluno Autenticado busca seus emprestimos",
         response: {
           200: z.object({
             emprestimos: z.array(z.object({
@@ -29,7 +29,7 @@ export async function buscarEmprestimoAluno(app: FastifyInstance) {
         },
       }
     }, async (request, reply) => {
-      const { alunoRa } = request.params
+
 
       const busca = await prisma.aluno.findUnique({
         select: {
@@ -42,7 +42,7 @@ export async function buscarEmprestimoAluno(app: FastifyInstance) {
           }
         },
         where: {
-          ra: alunoRa
+          id: parseInt(request.user.sub)
         }
       })
 

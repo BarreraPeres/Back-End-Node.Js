@@ -12,21 +12,27 @@ Este sistema foi projetado para gerenciar o empréstimo de livros para os alunos
 - **Docker / Docker Compose**: Utilizados para gerenciar e distribuir os contêineres da aplicação.
 
 ## Requisitos Funcionais
-
+- [x]  Deve ser possível se cadastrar;
+- [x]  Deve ser possível se autenticar;
 - [x]  Deve ser possível Realizar uma busca de alunos com suporte a paginação.
 - [x]  Deve ser possível Permitir que um aluno escolha um livro da biblioteca.
 - [x]  Deve ser possível Buscar e listar os livros emprestados relacionados a um aluno específico.
 - [x]  Deve ser possível Permitir que um colaborador realize o empréstimo de um livro usando o RA (Registro Acadêmico) do aluno e o CPF do colaborador.
-- [x]  Deve ser possível Permitir que o colaborador faça o empréstimo e retorne uma nota com o ID do empréstimo
-- [x]  Deve ser possível Permitir que o aluno devolva um livro com base no ID do empréstimo
+- [x]  Deve ser possível Permitir que o colaborador faça o empréstimo e retorne uma nota com o ID do empréstimo.
+- [x]  Deve ser possível o colaborador faça uma busca da nota do emprestimo.
+- [x]  Deve ser possível Permitir que o aluno devolva um livro.
 
 ## Regras de Negócio
 
 - [x]  Garantir que cada livro tenha um ISBN único
 - [x]  Garantir que apenas um colaborador pode realizar o empréstimo de um livro
-- [ ]  Identificar o usuário em todas as requisições, implementando autenticação e autorização
+- [x]  Identificar o usuário em todas as requisições, implementando autenticação e autorização
 - [x]  Gerenciar a quantidade de exemplares de cada livro disponíveis na biblioteca
 
+## Requisitos Não Funcionais
+
+- [x]  A senha do usuário precisa estar criptografada
+- [x]  O usuário deve ser identificado por um JWT (JSON Web Token)
 
 ## Instalação
 
@@ -55,13 +61,3 @@ A documentação da API está disponível através do Swagger UI. Após iniciar 
    ```sh
    http://localhost:8080/docs
 
-### Caso queira testar no banco de dados:
-1. Execute as migrações do banco de dados:
-   ```sh
-   npm run db:migrate
-2. Execute o script de seed do Prisma para popular o banco de dados com dados de teste:
-   ```sh
-   npx prisma db seed
-3. Abra o Prisma Studio para visualizar e interagir com os dados do banco de dados:
-   ```sh
-   npm run db:studio

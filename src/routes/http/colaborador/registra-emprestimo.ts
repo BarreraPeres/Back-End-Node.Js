@@ -1,23 +1,23 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod"
-import { prisma } from "../config/prisma"
-import { calcularDataDevolucaoPadrao } from "../utils/calcular-data-padrao";
-import { BadRequest } from "./_errors/bad-request";
+import { prisma } from "../../../config/prisma"
+import { calcularDataDevolucaoPadrao } from "../../../utils/calcular-data-padrao";
+import { BadRequest } from "../../_errors/bad-request";
+import { verifyRoleJwt } from "../../middleware/verify-colaborador-jwt";
 
 
-
-export async function criarEmprestimo(app: FastifyInstance) {
+export async function registraEmprestimo(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .post("/:isbn/emprestimo", {
+      onRequest: [verifyRoleJwt("colaborador")],
       schema: {
-        summary: "Cria o empréstimo",
-        tags: ["emprestimos"],
+        summary: "registra o empréstimo",
+        tags: ["colaborador"],
         body: z.object({
           dataDevolucao: z.string().datetime().nullable(),
           ra: z.number().int(),
-          cpf: z.number().int()
         }),
         params: z.object({
           isbn: z.coerce.number().int() // transformando o livroId pra string pois o parms so recebe string
@@ -30,22 +30,30 @@ export async function criarEmprestimo(app: FastifyInstance) {
       }
 
     }, async (request, reply) => {
-      const { ra, cpf, dataDevolucao } = request.body
-      const { isbn } = request.params
 
+      const bodySchema = z.object({
+        dataDevolucao: z.string().datetime().nullable(),
+        ra: z.number().int(),
+      })
+
+      const parmsSchema = z.object({
+        isbn: z.coerce.number().int(),
+      })
+
+      const { dataDevolucao, ra } = bodySchema.parse(request.body)
+      const { isbn } = parmsSchema.parse(request.params)
 
 
       const [aluno, colaborador, livro] = await Promise.all([
         prisma.aluno.findUnique({
           where: {
             ra: ra
-          } //achando o ra do aluno pra passar pelo body
-        }),
-        prisma.colaborador.findUnique({
-          where: {
-            cpf: cpf
           }
         }),
+        prisma.colaborador.findUnique({
+          where: { id: parseInt(request.user.sub) }
+        }),
+
         prisma.livro.findUnique({
           where: {
             isbn: isbn

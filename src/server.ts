@@ -5,20 +5,45 @@ import fastifySwagger from "@fastify/swagger"
 import fastifySwaggerUi from "@fastify/swagger-ui"
 import fastifiCors from "@fastify/cors"
 
-import { criarAluno } from "./routes/criar-aluno";
-import { criarLivro } from "./routes/criar-livro";
-import { criarColaborador } from "./routes/criar-colaborador"
-import { criarEmprestimo } from "./routes/criar-emprestimo";
-import { buscarLivros } from "./routes/buscar-livros";
-import { buscarAlunos } from "./routes/buscar-alunos";
-import { buscarEmprestimoAluno } from "./routes/buscar-emprestimo-aluno";
-import { devolverEmprestimo } from "./routes/devolver-emprestimo";
+import { registraAluno } from "./routes/http/aluno/registra-aluno";
+import { criarLivro } from "./routes/http/livro/criar-livro";
+import { registraColaborador } from "./routes/http/colaborador/registra-colaborador";
+import { registraEmprestimo } from "./routes/http/colaborador/registra-emprestimo";
+import { buscarLivros } from "./routes/http/livro/buscar-livros";
+import { buscarAlunos } from "./routes/http/colaborador/buscar-alunos";
+import { buscarEmprestimoAluno } from "./routes/http/aluno/buscar-emprestimo-aluno";
+import { devolverEmprestimo } from "./routes/http/livro/devolver-emprestimo";
 import { errorHandler } from "./error-handler";
+import fastifyJwt from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie";
+import { loginAluno } from "./routes/http/aluno/login-aluno";
+import { perfilAluno } from "./routes/http/aluno/perfil";
+import { env } from "./env";
+import { loginColaborador } from "./routes/http/colaborador/login-colaborador";
+import { perfilColaborador } from "./routes/http/colaborador/perfil";
+import { notaEmprestimo } from "./routes/http/livro/nota-emprestimo";
+import { refresh } from "./routes/http/refresh-token";
 
-export const app = fastify() //instaciei o fastfy
+
+export const app = fastify()
 
 app.register(fastifiCors, {
     origin: "*"
+})
+
+app.register(fastifyJwt, {
+    secret: env.JWT_SECRET,
+    cookie: {
+        cookieName: "refreshToken",
+        signed: false,
+    },
+    sign: {
+        expiresIn: "10m"
+    }
+})
+
+app.register(fastifyCookie, {
+
 })
 
 app.setValidatorCompiler(validatorCompiler);
@@ -40,19 +65,28 @@ app.register(fastifySwagger, {
 app.register(fastifySwaggerUi, {
     routePrefix: "/docs"
 })
-app.register(criarAluno, { prefix: '/biblioteca' })
+
+
+
+app.register(registraAluno, { prefix: '/biblioteca' })
 app.register(criarLivro, { prefix: '/biblioteca' })
-app.register(criarColaborador, { prefix: '/biblioteca' })
-app.register(criarEmprestimo, { prefix: '/biblioteca' })
+app.register(registraColaborador, { prefix: '/biblioteca' })
+app.register(registraEmprestimo, { prefix: '/biblioteca' })
 app.register(buscarLivros, { prefix: '/biblioteca' })
 app.register(buscarAlunos, { prefix: '/biblioteca' })
 app.register(buscarEmprestimoAluno, { prefix: '/biblioteca' })
 app.register(devolverEmprestimo, { prefix: '/biblioteca' })
+app.register(loginAluno, { prefix: '/biblioteca' })
+app.register(perfilAluno, { prefix: '/biblioteca' })
+app.register(loginColaborador, { prefix: '/biblioteca' })
+app.register(perfilColaborador, { prefix: '/biblioteca' })
+app.register(notaEmprestimo, { prefix: '/biblioteca' })
+app.register(refresh, { prefix: '/biblioteca' })
 
 app.setErrorHandler(errorHandler)
 
-app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
-    console.log("SERVER RUNNING");
+app.listen({ port: env.PORT || 3333, host: "0.0.0.0" }).then(() => {
+    console.log("SERVER RUNNING🚀");
 })
 
 

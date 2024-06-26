@@ -1,20 +1,24 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod"
 import { number, z } from "zod"
-import { geradorRa } from "../utils/gerador-ra"
-import { geradorEmail } from "../utils/gerador-email"
-import { prisma } from "../config/prisma"
+import { geradorRa } from "../../../utils/gerador-ra"
+import { geradorEmail } from "../../../utils/gerador-email"
+import { prisma } from "../../../config/prisma"
 import { FastifyInstance } from "fastify"
+import bcrypt from "bcryptjs"
 
-export async function criarAluno(app: FastifyInstance) {
+
+export async function registraAluno(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .post('/aluno', {
       schema: {
-        summary: "Cria um aluno",
+        summary: "Registra um aluno",
         tags: ["alunos"],
+        description: "dados para o cadastro nome,telefone,senha. Ra e Email, são gerado pelo servidor",
         body: z.object({
           nome: z.string().min(4),
-          telefone: z.string().optional()
+          telefone: z.string().optional(),
+          senha: z.string().min(6)
         }),
         response: {
           201: z.object({
@@ -23,13 +27,17 @@ export async function criarAluno(app: FastifyInstance) {
         },
       },
     }, async (request, reply) => {
-      const { nome, telefone } = request.body
+      const { nome, telefone, senha } = request.body
+
+      const senha_hash = await bcrypt.hash(senha, 6)
+
 
       const alunoRa = geradorRa()
       const alunoEmail = geradorEmail(nome, alunoRa)
 
       const alunos = await prisma.aluno.create({
         data: {
+          senha_hash,
           nome,
           telefone,
           ra: alunoRa, //gerado por função

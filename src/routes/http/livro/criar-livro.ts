@@ -1,13 +1,13 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { number, z } from "zod";
 import { FastifyInstance } from "fastify";
-import { prisma } from "../config/prisma";
-import { BadRequest } from "./_errors/bad-request";
+import { prisma } from "../../../config/prisma";
+import { BadRequest } from "../../_errors/bad-request";
 
 export async function criarLivro(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
-    .post("/livros", {
+    .post("/livro", {
       schema: {
         summary: "Cria um livro",
         tags: ["livros"],

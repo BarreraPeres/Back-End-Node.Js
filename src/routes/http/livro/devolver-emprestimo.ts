@@ -1,8 +1,8 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
-import { prisma } from "../config/prisma";
-import { BadRequest } from "./_errors/bad-request";
+import { prisma } from "../../../config/prisma";
+import { BadRequest } from "../../_errors/bad-request";
 
 export async function devolverEmprestimo(app: FastifyInstance) {
   app
@@ -10,7 +10,8 @@ export async function devolverEmprestimo(app: FastifyInstance) {
     .put("/:emprestimoId/devolucao", {
       schema: {
         summary: "Devolve o empréstimo",
-        tags: ["emprestimos"],
+        tags: ["livros"],
+        description: "dados para o devolvimento do livro; emprestimoId, isbn e ra",
         params: z.object({
           emprestimoId: z.coerce.number().int()
         }),

@@ -1,3 +1,6 @@
+# docker run --name db-lib-mysql -e MYSQL_ROOT_PASSWORD=docker -e MYSQL_PASSWORD=docker -e MYSQL_DATABASE=db-lib-mysq
+# l -p 3310:3306 mysql:5.7 
+
 version: '3'
 services:
   db:
@@ -7,9 +10,9 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: seu_banco_de_dados
-      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_DATABASE: db-lib-mysql
+      MYSQL_PASSWORD: docker
 
   app:
     build: .
@@ -18,7 +21,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=mysql://root:root@db:3310/seu_banco_de_dados
+      - DATABASE_URL=mysql://docker:docker@localhost:3310/db-lib-mysql
 volumes:
   db_data:
 

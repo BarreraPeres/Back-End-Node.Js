@@ -19,6 +19,7 @@ model Aluno {
   nome       String
   email      String       @unique
   telefone   String?
+  senha_hash String
   Emprestimo Emprestimo[]
 }
 
@@ -37,6 +38,7 @@ model Colaborador {
   cpf        Int          @unique
   nome       String
   email      String       @unique
+  senha_hash String
   cargo      String
   Emprestimo Emprestimo[]
 }

@@ -1,17 +1,22 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { prisma } from "../config/prisma";
+import { prisma } from "../../../config/prisma";
+import { verifyRoleJwt } from "../../middleware/verify-colaborador-jwt";
+
+
 
 export async function buscarAlunos(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .get("/alunos", {
+      onRequest: [verifyRoleJwt("colaborador")],
       schema: {
         summary: "Busca todos alunos",
-        tags: ["alunos"],
+        tags: ["colaborador"],
+        description: "Colaborador Autenticado busca alunos paginados",
         querystring: z.object({
-          query: z.string().nullish(),
+          query: z.string().nullish().optional(),
           pageIndex: z.string().nullish().default("0").transform(Number)
         }),
         response: {
@@ -27,10 +32,18 @@ export async function buscarAlunos(app: FastifyInstance) {
               })
             )
           })
-        }
+        },
+
       }
     }, async (request, reply) => {
-      const { pageIndex, query } = request.query
+
+      const querySchema = z.object({
+        query: z.string().nullish().optional(),
+        pageIndex: z.string().nullish().default("0").transform(Number)
+      })
+
+      const { pageIndex, query } = querySchema.parse(request.params)
+
 
       const aluno = await prisma.aluno.findMany({
         select: {
